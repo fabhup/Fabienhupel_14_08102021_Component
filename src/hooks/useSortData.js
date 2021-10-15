@@ -30,7 +30,7 @@ export const useSortData = (data, defaultSort = null) => {
         });
       }
       return newData;
-    }, [data, activeSort]);
+    }, [activeSort, data]);
   
     const sortData = (key, format) => {
       let direction = 'asc';

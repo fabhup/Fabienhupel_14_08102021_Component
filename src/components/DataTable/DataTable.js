@@ -33,19 +33,19 @@ export default function DataTable({
 
     // if a style parameter for a component is define it will replace the same parameter from defaultStyles but keep all other defaultStyles parameters
     const styles = {
-        dataTableContainer: {...defaultStyles.dataTableContainer, ...styleDataTableContainer},
-        dataTableHeader: {...defaultStyles.dataTableHeader, ...styleDataTableHeader},
-        dataTableContent: {...defaultStyles.dataTableContent, ...styleDataTableContent},
-        dataTableContentHeader: {...defaultStyles.dataTableContentHeader, ...styleDataTableContentHeader},
-        dataTableContentBody: {...defaultStyles.dataTableContentBody, ...styleDataTableContentBody},
-        dataTableContentFooter: {...defaultStyles.dataTableContentFooter, ...styleDataTableContentFooter},
-        dataTableColumn: {...defaultStyles.dataTableColumn, ...styleDataTableColumn},
-        dataTableFooter: {...defaultStyles.dataTableFooter, ...styleDataTableFooter},
-        dataTableRow: {...defaultStyles.dataTableRow, ...styleDataTableRow},
-        dataTableCell: {...defaultStyles.dataTableCell, ...styleDataTableCell},
+        dataTableContainer: {...defaultStyles(colors).dataTableContainer, ...styleDataTableContainer},
+        dataTableHeader: {...defaultStyles(colors).dataTableHeader, ...styleDataTableHeader},
+        dataTableContent: {...defaultStyles(colors).dataTableContent, ...styleDataTableContent},
+        dataTableContentHeader: {...defaultStyles(colors).dataTableContentHeader, ...styleDataTableContentHeader},
+        dataTableContentBody: {...defaultStyles(colors).dataTableContentBody, ...styleDataTableContentBody},
+        dataTableContentFooter: {...defaultStyles(colors).dataTableContentFooter, ...styleDataTableContentFooter},
+        dataTableColumn: {...defaultStyles(colors).dataTableColumn, ...styleDataTableColumn},
+        dataTableFooter: {...defaultStyles(colors).dataTableFooter, ...styleDataTableFooter},
+        dataTableRow: {...defaultStyles(colors).dataTableRow, ...styleDataTableRow},
+        dataTableCell: {...defaultStyles(colors).dataTableCell, ...styleDataTableCell},
     }
 
-    const { sortedData, sortData } = useSortData(data);
+    const { sortedData, activeSort, sortData } = useSortData(data);
 
   return (
     <DataTableContainer className='dataTableContainer'  style={styles.dataTableContainer}>
@@ -55,15 +55,14 @@ export default function DataTable({
         <DataTableContent style={styles.dataTableContent}>
             <DataTableContentHeader className='dataTableContentHeader' role="rowgroup" style={styles.dataTableContentHeader}>
                 {columns.map((column) => (
-                    <DataTableColumn className='dataTableColumn'
-                        role="columnheader" 
-                        style={styles.dataTableColumn} 
+                    <DataTableColumn 
                         key={column.key}
                         column={column}
+                        style={styles.dataTableColumn} 
+                        activeSort={activeSort && activeSort.key === column.key ? activeSort : null}
                         onClick={() => sortData(column.key, column.format)}
-                    >
-                        {column.title}
-                    </DataTableColumn>  
+                        colors={colors}
+                    />
                 ))}
             </DataTableContentHeader>  
             <DataTableContentBody 
@@ -82,16 +81,13 @@ export default function DataTable({
                         stripedColor={stripedColor}
                     >
                     {columns.map((column, index) => (
-                        <DataTableCell className='dataTableCell' 
+                        <DataTableCell 
                             style={styles.dataTableCell} 
-                            role="gridcell"
+                            value={!dataRow[column.key] ? "" : dataRow[column.key]}
                             key={index}
                             column={column}
-                        >
-                            <div className='dataTableCellValue' >
-                                {!dataRow[column.key] ? "" : dataRow[column.key]}
-                            </div>
-                        </DataTableCell>  
+                            activeSort={activeSort && activeSort.key === column.key ? activeSort : null}
+                        />
                     ))}
                     </DataTableRow>
                 ))}

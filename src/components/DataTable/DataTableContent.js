@@ -1,7 +1,6 @@
 
 import styled from 'styled-components'
 
-
 const StyledDataTableContentWrapper = styled.div`
     width: 100%;
     overflow: hidden;

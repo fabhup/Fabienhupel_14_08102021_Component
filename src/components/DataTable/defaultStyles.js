@@ -1,12 +1,13 @@
 export const defaultColors = {
-    primaryColor: '#263238',
+    primaryColor: '#455A64',
     secondaryColor: '#455A64',
     stripedColor: '#ECEFF1'
 }
-export const defaultStyles = {
+export const defaultStyles = ({colors=defaultColors}) => {
+    return {
     dataTableContainer: {
         fontSize: '1em',
-        color: defaultColors.primaryColor,
+        color: colors.primaryColor,
         backgroundColor: null, 
         fontFamily: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif'
       },
@@ -16,7 +17,7 @@ export const defaultStyles = {
     dataTableContent: {},
     dataTableContentHeader: {
         fontWeight: 'bold',
-        color: defaultColors.secondaryColor,
+        color: colors.primaryColor,
     },
     dataTableContentBody: {},
     dataTableContentFooter: {},
@@ -25,4 +26,4 @@ export const defaultStyles = {
     dataTableRow:{},
     dataTableCell:{},
 }
-
+}
