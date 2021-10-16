@@ -23,7 +23,7 @@ const employees = [{
         street: "5 Helmet Row",
         city: "London",
         state: "UK",
-        zipCode: "EC1V 3QJ"
+        zipCode: "EC1V3QJ"
         },
     {   
         id: 3,
@@ -35,8 +35,116 @@ const employees = [{
         street: "47 Downtown Road",
         city: "London",
         state: "UK",
-        zipCode: "EC1V 3QJ"
+        zipCode: "SW1A2AB"
       },
+      {   
+        id: 4,
+        firstName: "Frank",
+        lastName: "Robert",
+        dateOfBirth: "1996-02-12",
+        startDate: "2015-10-02",
+        department: "IT",
+        street: "5, Rue de Courcelles",
+        city: "Paris",
+        state: "France",
+        zipCode: "75000"
+        },
+    {   
+        id: 5,
+        firstName: "Romain",
+        lastName: "Hervé",
+        dateOfBirth: "1992-05-09",
+        startDate: "2014-11-15",
+        department: "Marketing",
+        street: "5, Allée des mouettes",
+        city: "Rennes",
+        state: "France",
+        zipCode: "35000"
+      },
+      {   
+        id: 6,
+        firstName: "Fabien",
+        lastName: "Dumont",
+        dateOfBirth: "1985-01-09",
+        startDate: "2005-12-10",
+        department: "Marketing",
+        street: "42, Rue de Rennes",
+        city: "Nantes",
+        state: "France",
+        zipCode: "44000"
+      },
+      {   
+        id: 7,
+        firstName: "Julia",
+        lastName: "Peters",
+        dateOfBirth: "2002-05-11",
+        startDate: "2014-11-05",
+        department: "Accounting",
+        street: "52 Park Avenue",
+        city: "Liverpool",
+        state: "UK",
+        zipCode: "HDGHSQJ"
+      },
+      {   
+        id: 8,
+        firstName: "Samantha",
+        lastName: "Edwards",
+        dateOfBirth: "1975-04-15",
+        startDate: "2017-10-29",
+        department: "Human Ressources",
+        street: "132 King Avenue",
+        city: "New York",
+        state: "USA",
+        zipCode: "GDTSVZK"
+        },
+    {   
+        id: 9,
+        firstName: "Marie",
+        lastName: "Durand",
+        dateOfBirth: "1970-04-11",
+        startDate: "2012-02-02",
+        department: "Human Ressources",
+        street: "47 Rue de Nantes",
+        city: "Rennes",
+        state: "France",
+        zipCode: "35000"
+      },
+      {   
+        id: 10,
+        firstName: "Francis",
+        lastName: "Henry",
+        dateOfBirth: "1961-02-17",
+        startDate: "2001-10-01",
+        department: "IT",
+        street: "5 Rue de l'Alma",
+        city: "Paris",
+        state: "France",
+        zipCode: "75000"
+        },
+    {   
+        id: 11,
+        firstName: "Jean-Sébastien",
+        lastName: "De la Riboisière",
+        dateOfBirth: "1987-02-15",
+        startDate: "2018-01-02",
+        department: "Finance",
+        street: "32 Quai des Ormes",
+        city: "Paris",
+        state: "France",
+        zipCode: "75000"
+      },
+      {   
+        id: 12,
+        firstName: "Edouard",
+        lastName: "Martin",
+        dateOfBirth: "1984-11-15",
+        startDate: "2019-12-01",
+        department: "Marketing",
+        street: "52, Rue du parc",
+        city: "Nantes",
+        state: "France",
+        zipCode: "44000"
+        },
     ] 
 
 export default {
@@ -117,7 +225,7 @@ DefaultStyle.args = {
       title: 'Id',
       key: 'id',
       format: 'number',
-      widthRatio: .5, 
+      widthRatio: .3, 
     },
     { title: 'First Name', 
       key: 'firstName',

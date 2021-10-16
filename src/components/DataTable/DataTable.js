@@ -8,9 +8,13 @@ import {DataTableContentFooter} from './DataTableContentFooter'
 import {DataTableContentBody} from './DataTableContentBody.js' 
 import {DataTableColumn} from './DataTableColumn' 
 import {DataTableRow} from './DataTableRow' 
-import {DataTableCell} from './DataTableCell' 
+import {DataTableCell} from './DataTableCell'
+import {SelectRowsPerPage} from './SelectRowsPerPage' 
 import { defaultStyles, defaultColors } from './defaultStyles';
+import {defaultProps} from './defaultProps'
 import {useSortData} from '../../hooks/useSortData'
+import {useState, useMemo} from 'react'
+
 // import PropTypes from 'prop-types';
 
 export default function DataTable({ 
@@ -19,6 +23,9 @@ export default function DataTable({
     striped = false,
     stripedColor = defaultColors.stripedColor,
     colors = defaultColors,
+    rowsPerPageDefault= defaultProps.rowsPerPageDefault,
+    rowsPerPageOptions= defaultProps.rowsPerPageOptions,
+    pagination=true,
     styleDataTableContainer, 
     styleDataTableHeader,
     styleDataTableContent,
@@ -44,13 +51,39 @@ export default function DataTable({
         dataTableRow: {...defaultStyles(colors).dataTableRow, ...styleDataTableRow},
         dataTableCell: {...defaultStyles(colors).dataTableCell, ...styleDataTableCell},
     }
-
+    
     const { sortedData, activeSort, sortData } = useSortData(data);
+    const  [rowsPerPage, setRowsPerPage ] = useState(rowsPerPageDefault || rowsPerPageOptions[0]);
+    const  [currentPage, setCurrentPage ] = useState(1);
+    const  [totalPages, setTotalPages ] = useState(Math.ceil(data.length/rowsPerPage));
 
+    const visibleRows = useMemo(() => {
+		if (pagination) {
+            const lastRowIndex = currentPage * rowsPerPage;
+            const firstRowIndex = lastRowIndex - rowsPerPage;
+			return sortedData.slice(firstRowIndex, lastRowIndex);
+		}
+        return sortedData;
+
+    }, [currentPage, pagination, rowsPerPage, sortedData]);
+
+    const handleChangeRowsPerPage = (newRowsPerPage) => {
+        setRowsPerPage(newRowsPerPage)
+        setCurrentPage(1)
+        setTotalPages(Math.ceil(sortedData.length/newRowsPerPage))
+    }
+    
   return (
     <DataTableContainer className='dataTableContainer'  style={styles.dataTableContainer}>
         <DataTableHeader className='dataTableHeader' role="heading" style={styles.dataTableHeader}>
-        {"Add Header"}
+        <SelectRowsPerPage 
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={rowsPerPageOptions}
+            rowsPerPageLabel={"Rows per page"}
+            style={null}
+            onChange={handleChangeRowsPerPage} 
+
+        />
         </DataTableHeader>
         <DataTableContent style={styles.dataTableContent}>
             <DataTableContentHeader className='dataTableContentHeader' role="rowgroup" style={styles.dataTableContentHeader}>
@@ -70,7 +103,7 @@ export default function DataTable({
                 role="rowgroup"
                 style={styles.dataTableContentBody}
             >
-                {sortedData.map((dataRow, index) => (
+                {visibleRows.map((dataRow, index) => (
                     <DataTableRow 
                         className='dataTableRow'
                         role="row"
@@ -98,7 +131,7 @@ export default function DataTable({
             </DataTableContentFooter>  
         </DataTableContent>  
         <DataTableFooter className='dataTableFooter' style={styles.dataTableFooter}>
-            {"Add Footer"}
+            {`Page ${currentPage} / ${totalPages}`}
         </DataTableFooter>       
     </DataTableContainer>
   );

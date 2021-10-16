@@ -14,7 +14,7 @@ const StyledDataTableCell = styled.div`
     align-content: stretch;
     max-width: 100%;
     padding: 5px 10px;
-    ${({ activeSort }) => activeSort && 'background: linear-gradient(rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.03));'}
+    ${({ activeSort }) => activeSort && 'background: rgba(0, 0, 0, 0.03);'}
 
     & div:first-child {
         overflow: hidden;

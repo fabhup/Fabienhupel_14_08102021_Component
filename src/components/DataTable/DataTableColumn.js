@@ -24,7 +24,7 @@ const StyledDataTableColumn = styled.div`
         content: " ";
         width: 15px;
         height: 15px;
-        top: 5px;
+        top: 4px;
         right: 5px;
         position: absolute;
         display: block;
