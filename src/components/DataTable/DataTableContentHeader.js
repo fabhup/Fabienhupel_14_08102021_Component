@@ -5,11 +5,13 @@ export const DataTableContentHeader = styled.div`
     justify-content: row;
     font-weight: bold;
     border-bottom: solid 1px grey;
-    align-items: flex-start;
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 1;
-    padding: 5px 0;
+    padding: 2px 0;
     background: white;
+    border-radius: 5px 5px 0 0;
+    overflow: revert;
     ${({ style }) => style};
 `

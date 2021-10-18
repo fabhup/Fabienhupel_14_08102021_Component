@@ -15,7 +15,7 @@ const StyledDataTableColumn = styled.div`
         min-width: 6em;
         `}
     max-width: 100%;
-    padding: 0 20px 5px 10px;
+    padding: 5px 20px 5px 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 3em;
@@ -26,7 +26,7 @@ const StyledDataTableColumn = styled.div`
         content: " ";
         width: 15px;
         height: 15px;
-        top: 4px;
+        top: 9px;
         right: 5px;
         position: absolute;
         display: block;

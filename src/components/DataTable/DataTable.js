@@ -9,7 +9,9 @@ import { DataTableContentBody } from './DataTableContentBody.js'
 import { DataTableColumn } from './DataTableColumn'
 import { DataTableRow } from './DataTableRow'
 import { DataTableCell } from './DataTableCell'
+import { DataTableEmptyRows } from './DataTableEmptyRows'
 import { SelectRowsPerPage } from './SelectRowsPerPage'
+import { Pagination } from './Pagination'
 import { defaultStyles, defaultColors } from './defaultStyles'
 import { defaultProps } from './defaultProps'
 import { useSortData } from '../../hooks/useSortData'
@@ -23,9 +25,12 @@ export default function DataTable({
     striped = false,
     stripedColor = defaultColors.stripedColor,
     colors = defaultColors,
+    dataTableBorderPosition = defaultProps.dataTableBorderPosition,
     rowsPerPageDefault = defaultProps.rowsPerPageDefault,
     rowsPerPageOptions = defaultProps.rowsPerPageOptions,
     rowsPerPagePosition = defaultProps.rowsPerPagePosition,
+    rowsPerPageLabel = defaultProps.rowsPerPageLabel,
+    rowsPerPageTextAfter = defaultProps.rowsPerPageTextAfter,
     pagination = true,
     styleDataTableContainer,
     styleDataTableHeader,
@@ -106,10 +111,22 @@ export default function DataTable({
         setTotalPages(Math.ceil(sortedData.length / newRowsPerPage))
     }
 
+    const handleChangePage = (newPageIndex) => {
+        const newTotalPages = Math.ceil(sortedData.length / rowsPerPage)
+        const newCurrentPage =
+            newPageIndex < 1
+                ? 1
+                : newPageIndex >= newTotalPages
+                ? newTotalPages
+                : newPageIndex
+        setCurrentPage(newCurrentPage)
+        setTotalPages(newTotalPages)
+    }
     return (
         <DataTableContainer
             className="dataTableContainer"
             style={styles.dataTableContainer}
+            dataTableBorderPosition={dataTableBorderPosition}
         >
             <DataTableHeader
                 className="dataTableHeader"
@@ -120,13 +137,17 @@ export default function DataTable({
                     <SelectRowsPerPage
                         rowsPerPage={rowsPerPage}
                         rowsPerPageOptions={rowsPerPageOptions}
-                        rowsPerPageLabel={'Rows per page'}
+                        rowsPerPageLabel={rowsPerPageLabel}
+                        rowsPerPageTextAfter={rowsPerPageTextAfter}
                         style={null}
                         onChange={handleChangeRowsPerPage}
                     />
                 )}
             </DataTableHeader>
-            <DataTableContent style={styles.dataTableContent}>
+            <DataTableContent
+                style={styles.dataTableContent}
+                dataTableBorderPosition={dataTableBorderPosition}
+            >
                 <DataTableContentHeader
                     className="dataTableContentHeader"
                     role="rowgroup"
@@ -151,6 +172,7 @@ export default function DataTable({
                     className="dataTableContentBody"
                     role="rowgroup"
                     style={styles.dataTableContentBody}
+                    minRows={sortedData.length<rowsPerPage && currentPage===1 ? sortedData.length : rowsPerPage}
                 >
                     {visibleRows.map((dataRow, index) => (
                         <DataTableRow
@@ -182,6 +204,13 @@ export default function DataTable({
                             ))}
                         </DataTableRow>
                     ))}
+                    {visibleRows.length < rowsPerPage && currentPage > 1 && (
+                        <DataTableEmptyRows
+                            className="dataTableEmptyRows"
+                            emptyRows={rowsPerPage - visibleRows.length}
+                            stripedColor={stripedColor}
+                        ></DataTableEmptyRows>
+                    )}
                 </DataTableContentBody>
                 <DataTableContentFooter
                     className="dataTableContentFooter"
@@ -192,16 +221,26 @@ export default function DataTable({
                 className="dataTableFooter"
                 style={styles.dataTableFooter}
             >
-                {`Page ${currentPage} / ${totalPages}`}
                 {pagination && rowsPerPagePosition === 'bottom' && (
                     <SelectRowsPerPage
                         rowsPerPage={rowsPerPage}
                         rowsPerPageOptions={rowsPerPageOptions}
-                        rowsPerPageLabel={'Rows per page'}
+                        rowsPerPageLabel={rowsPerPageLabel}
+                        rowsPerPageTextAfter={rowsPerPageTextAfter}
                         style={null}
                         onChange={handleChangeRowsPerPage}
                     />
                 )}
+                {
+                    <Pagination
+                        currentPage={currentPage}
+                        rowsPerPage={rowsPerPage}
+                        totalPages={totalPages}
+                        totalRows={sortedData.length}
+                        style={null}
+                        onChangePage={handleChangePage}
+                    />
+                }
             </DataTableFooter>
         </DataTableContainer>
     )

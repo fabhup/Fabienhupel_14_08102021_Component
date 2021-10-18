@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { darken } from 'polished'
 
 export const DataTableRow = styled.div`
-    min-height: 2em;
+    min-height: 3em;
     display: flex;
     align-items: stretch;
     align-content: stretch;

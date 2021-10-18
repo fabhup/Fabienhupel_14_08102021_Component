@@ -5,7 +5,7 @@ const StyledRowsPerPageContainer = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-
+    padding: 15px;
     ${({ style }) => style};
 `
 
@@ -23,6 +23,7 @@ export function SelectRowsPerPage({
     rowsPerPage,
     rowsPerPageOptions,
     rowsPerPageLabel,
+    rowsPerPageTextAfter,
     style,
     onChange,
 }) {
@@ -34,20 +35,21 @@ export function SelectRowsPerPage({
                 className="dataTableRowsPerPageLabel"
             >
                 {rowsPerPageLabel}
+                <StyledRowsPerPageSelector
+                    id={id}
+                    name="datatableRowsPerPage"
+                    className="dataTableRowsPerPageSelector"
+                    onChange={(e) => onChange(e.target.value)}
+                    defaultValue={rowsPerPage}
+                >
+                    {rowsPerPageOptions.map((optionValue) => (
+                        <option key={optionValue} value={optionValue}>
+                            {optionValue}
+                        </option>
+                    ))}
+                </StyledRowsPerPageSelector>
+                {rowsPerPageTextAfter}
             </StyledRowsPerPageLabel>
-            <StyledRowsPerPageSelector
-                id={id}
-                name="datatableRowsPerPage"
-                className="dataTableRowsPerPageSelector"
-                onChange={(e) => onChange(e.target.value)}
-                defaultValue={rowsPerPage}
-            >
-                {rowsPerPageOptions.map((optionValue) => (
-                    <option key={optionValue} value={optionValue}>
-                        {optionValue}
-                    </option>
-                ))}
-            </StyledRowsPerPageSelector>
         </StyledRowsPerPageContainer>
     )
 }

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const DataTableFooter = styled.div`
-    padding: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin: 0px;
     ${({ style }) => style};
 `

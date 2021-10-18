@@ -2,6 +2,6 @@ import styled from 'styled-components'
 
 export const DataTableHeader = styled.div`
     display: flex;
-    padding: 10px;
+    justify-content: space-between;
     ${({ style }) => style};
 `
