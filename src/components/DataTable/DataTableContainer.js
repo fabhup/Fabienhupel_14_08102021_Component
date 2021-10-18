@@ -5,5 +5,5 @@ export const DataTableContainer = styled.div`
     margin: 0;
     border: solid 1px lightgrey;
     border-radius: 5px;
-    ${({ style }) => (style)};
+    ${({ style }) => style};
 `

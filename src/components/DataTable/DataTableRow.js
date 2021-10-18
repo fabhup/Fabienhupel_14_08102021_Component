@@ -6,12 +6,13 @@ export const DataTableRow = styled.div`
     display: flex;
     align-items: stretch;
     align-content: stretch;
-    ${({ striped, stripedColor }) => (striped && `
-        background-color: ${stripedColor};
+    ${({ striped, stripedColor }) =>
+        striped &&
         `
-    )}
+        background-color: ${stripedColor};
+        `}
     ${({ stripedColor }) => `&:hover{
-        background-color: ${darken(0.05,stripedColor)};
+        background-color: ${darken(0.05, stripedColor)};
     }`}
-    ${({ style }) => (style)};
+    ${({ style }) => style};
 `

@@ -1,8 +1,7 @@
-
 import styled from 'styled-components'
 
 export const DataTableContentHeader = styled.div`
-    display: flex; 
+    display: flex;
     justify-content: row;
     font-weight: bold;
     border-bottom: solid 1px grey;
@@ -11,6 +10,6 @@ export const DataTableContentHeader = styled.div`
     top: 0;
     z-index: 1;
     padding: 5px 0;
-    background: white;    
-    ${({ style }) => (style)};
+    background: white;
+    ${({ style }) => style};
 `

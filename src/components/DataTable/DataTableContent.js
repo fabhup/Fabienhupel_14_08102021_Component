@@ -12,29 +12,35 @@ const StyledDataTableContent = styled.div`
     padding: 0px;
     overflow: auto;
     max-height: 30em;
-
     &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 4px rgb(0 0 0 / 20%);
+        -webkit-box-shadow: inset 0 0 3px rgb(0 0 0 / 10%);
         border-radius: 0px;
-        background-color: white;
+        background-color: snow;
         margin-top: 40px;
         position: relative;
         top: 0;
         left: 0;
-        height: 20%;
+        height: 30%;
     }
     
     &::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-        background: none;
+        width: 18px;
+        background: none;     
+        height: 18px;
+        padding: 4px;
     }
     
     &::-webkit-scrollbar-thumb {
-        border-radius: 4px;
+        border-radius: 100px;
         -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 20%);
+        border: 4px solid transparent;
+        background-clip: content-box;
         background-color: #0277BD;
     }
+
+    scrollbar-color: #0277BD snow;
+    scrollbar-width: 10px;
+
     ${({ style }) => (style)};
 `
 

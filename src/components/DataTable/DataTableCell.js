@@ -1,14 +1,16 @@
 import styled from 'styled-components'
 
 const StyledDataTableCell = styled.div`
-    ${({ column }) => (column.widthRatio > 0 ? `
+    ${({ column }) =>
+        column.widthRatio > 0
+            ? `
         flex: ${column.widthRatio} 0 0;
-        min-width: ${column.widthRatio*6}em;
-    ` : `
+        min-width: ${column.widthRatio * 6}em;
+    `
+            : `
         flex: 1 0 0;
         min-width: 6em;
-        `
-    )}
+        `}
     display: flex;
     align-items: center;
     align-content: stretch;
@@ -22,36 +24,35 @@ const StyledDataTableCell = styled.div`
         ${({ column }) => {
             if (!column.splitContent) {
                 return `white-space: nowrap;`
-            }
-            else {
+            } else {
                 return `display: -webkit-box;
-                    -webkit-line-clamp: ${column.splitContentRows>2 ? column.splitContentRows : 2};
+                    -webkit-line-clamp: ${
+                        column.splitContentRows > 2
+                            ? column.splitContentRows
+                            : 2
+                    };
                     -webkit-box-orient: vertical; 
-                    `                    
+                    `
             }
         }}
     }
-    ${({ style }) => (style)};
+    ${({ style }) => style};
 `
 
-export function DataTableCell({
-    column,
-    activeSort,
-    style,
-    value,
-}) {
-    return <StyledDataTableCell className='dataTableCell' 
-        role="gridcell"
-        column={column}
-        activeSort={activeSort}
-        style={style}
-    >
-        <div className='dataTableCellValue' >
-            {value}
-        </div>
-    </StyledDataTableCell>
+export function DataTableCell({ column, activeSort, style, value }) {
+    return (
+        <StyledDataTableCell
+            className="dataTableCell"
+            role="gridcell"
+            column={column}
+            activeSort={activeSort}
+            style={style}
+        >
+            <div className="dataTableCellValue">{value}</div>
+        </StyledDataTableCell>
+    )
 }
-// style={styles.dataTableCell} 
+// style={styles.dataTableCell}
 //                             role="gridcell"
 //                             value={!dataRow[column.key] ? "" : dataRow[column.key]}
 //                             key={index}

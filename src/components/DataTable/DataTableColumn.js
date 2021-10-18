@@ -4,14 +4,16 @@ import sortUpIcon from '../../icons/sort-up-solid.svg'
 import sortableIcon from '../../icons/sort-solid.svg'
 
 const StyledDataTableColumn = styled.div`
-    ${({ column }) => (column.widthRatio > 0 ? `
+    ${({ column }) =>
+        column.widthRatio > 0
+            ? `
         flex: ${column.widthRatio} 0 0;
-        min-width: ${column.widthRatio*6}em;
-    ` : `
+        min-width: ${column.widthRatio * 6}em;
+    `
+            : `
         flex: 1 0 0;
         min-width: 6em;
-        `
-    )}
+        `}
     max-width: 100%;
     padding: 0 20px 5px 10px;
     overflow: hidden;
@@ -29,7 +31,7 @@ const StyledDataTableColumn = styled.div`
         position: absolute;
         display: block;
         background-size: 15px 15px;
-        background-color: ${({colors}) => (colors.primaryColor || 'lightgrey')};
+        background-color: ${({ colors }) => colors.primaryColor || 'lightgrey'};
         ${({ activeSort }) => {
             if (!activeSort) {
                 return `
@@ -37,49 +39,50 @@ const StyledDataTableColumn = styled.div`
                     -webkit-mask: url(${sortableIcon}) no-repeat;
                     opacity: .2;
                     `
-            }
-            else {
+            } else {
                 switch (activeSort.direction) {
                     case 'asc':
                         return `
                         mask: url(${sortDownIcon}) no-repeat;
                         -webkit-mask: url(${sortDownIcon}) no-repeat;
                         opacity: 1;
-                        ` 
+                        `
                     case 'desc':
                         return `
                         mask: url(${sortUpIcon}) no-repeat;
                         -webkit-mask: url(${sortUpIcon}) no-repeat;
                         opacity: 1;
-                        ` 
-                    default :
+                        `
+                    default:
                         return `
                         mask: url(${sortableIcon}) no-repeat;
                         -webkit-mask: url(${sortableIcon}) no-repeat;
                         opacity: .2;
-                        ` 
+                        `
                 }
             }
         }}
-    ${({ style }) => (style)};
+    ${({ style }) => style};
 `
 
 export function DataTableColumn({
-    style, 
-    column, 
-    activeSort, 
+    style,
+    column,
+    activeSort,
     onClick,
     colors,
-    }) {
-    return <StyledDataTableColumn 
-        className='dataTableColumn'
-        role="columnheader" 
-        style={style} 
-        column={column}
-        activeSort={activeSort}
-        onClick={onClick}
-        colors={colors}
-    >
-        {column.title}
-    </StyledDataTableColumn>
+}) {
+    return (
+        <StyledDataTableColumn
+            className="dataTableColumn"
+            role="columnheader"
+            style={style}
+            column={column}
+            activeSort={activeSort}
+            onClick={onClick}
+            colors={colors}
+        >
+            {column.title}
+        </StyledDataTableColumn>
+    )
 }
