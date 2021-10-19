@@ -9,6 +9,6 @@ export const DataTableContainer = styled.div`
         dataTableBorderPosition === 'container' &&
         `   border: solid 1px lightgrey;
             border-radius: 5px;
-            border
+            box-shadow: 1px 1px 2px lightgrey;
     `};
 `

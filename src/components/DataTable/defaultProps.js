@@ -6,4 +6,6 @@ export const defaultProps = {
     rowsPerPageDefault: 10,
     rowsPerPageLabel: 'Rows per page',
     rowsPerPageTextAfter: '',
+    searchBar: true,
+    searchBarPlaceholder: 'Search',
 }

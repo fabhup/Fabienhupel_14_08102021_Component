@@ -7,6 +7,7 @@ const StyledDataTableContentWrapper = styled.div`
         dataTableBorderPosition === 'content' &&
         `   border: solid 1px lightgrey;
             border-radius: 5px;
+            box-shadow: 10px 10px 5px 20px lightgrey;
             -webkit-mask-image: -webkit-radial-gradient(white, black);
     `};
 `

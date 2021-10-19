@@ -22,8 +22,8 @@ const StyledRowsPerPageSelector = styled.select`
 export function SelectRowsPerPage({
     rowsPerPage,
     rowsPerPageOptions,
-    rowsPerPageLabel,
-    rowsPerPageTextAfter,
+    label,
+    textAfterLabel,
     style,
     onChange,
 }) {
@@ -31,10 +31,10 @@ export function SelectRowsPerPage({
     return (
         <StyledRowsPerPageContainer className="dataTableRowsPerPageContainer">
             <StyledRowsPerPageLabel
-                for={id}
+                htmlFor={id}
                 className="dataTableRowsPerPageLabel"
             >
-                {rowsPerPageLabel}
+                {label}
                 <StyledRowsPerPageSelector
                     id={id}
                     name="datatableRowsPerPage"
@@ -48,7 +48,7 @@ export function SelectRowsPerPage({
                         </option>
                     ))}
                 </StyledRowsPerPageSelector>
-                {rowsPerPageTextAfter}
+                {textAfterLabel}
             </StyledRowsPerPageLabel>
         </StyledRowsPerPageContainer>
     )

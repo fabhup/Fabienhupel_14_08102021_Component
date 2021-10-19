@@ -1,4 +1,3 @@
-import { isEven } from '../../utils/utils'
 import { DataTableContainer } from './DataTableContainer'
 import { DataTableHeader } from './DataTableHeader'
 import { DataTableContent } from './DataTableContent'
@@ -11,11 +10,14 @@ import { DataTableRow } from './DataTableRow'
 import { DataTableCell } from './DataTableCell'
 import { DataTableEmptyRows } from './DataTableEmptyRows'
 import { SelectRowsPerPage } from './SelectRowsPerPage'
+import { SearchBar } from './SearchBar'
 import { Pagination } from './Pagination'
 import { defaultStyles, defaultColors } from './defaultStyles'
 import { defaultProps } from './defaultProps'
 import { useSortData } from '../../hooks/useSortData'
+import { useFilterData } from '../../hooks/useFilterData'
 import { useState, useMemo } from 'react'
+import { isEven } from '../../utils/utils'
 
 // import PropTypes from 'prop-types';
 
@@ -32,6 +34,8 @@ export default function DataTable({
     rowsPerPageLabel = defaultProps.rowsPerPageLabel,
     rowsPerPageTextAfter = defaultProps.rowsPerPageTextAfter,
     pagination = true,
+    searchBar = defaultProps.searchBar,
+    searchBarPlaceholder = defaultProps.searchBarPlaceholder,
     styleDataTableContainer,
     styleDataTableHeader,
     styleDataTableContent,
@@ -86,8 +90,8 @@ export default function DataTable({
             ...styleDataTableCell,
         },
     }
-
-    const { sortedData, activeSort, sortData } = useSortData(data)
+    const { filteredData, activeFilter, filterData } = useFilterData(data)
+    const { sortedData, activeSort, sortData } = useSortData(filteredData)
     const [rowsPerPage, setRowsPerPage] = useState(
         rowsPerPageDefault || rowsPerPageOptions[0]
     )
@@ -95,7 +99,6 @@ export default function DataTable({
     const [totalPages, setTotalPages] = useState(
         Math.ceil(data.length / rowsPerPage)
     )
-
     const visibleRows = useMemo(() => {
         if (pagination) {
             const lastRowIndex = currentPage * rowsPerPage
@@ -122,6 +125,12 @@ export default function DataTable({
         setCurrentPage(newCurrentPage)
         setTotalPages(newTotalPages)
     }
+
+    const handleSearch = (searchedString) => {
+        filterData(searchedString)
+        setCurrentPage(1)
+    }
+
     return (
         <DataTableContainer
             className="dataTableContainer"
@@ -137,11 +146,17 @@ export default function DataTable({
                     <SelectRowsPerPage
                         rowsPerPage={rowsPerPage}
                         rowsPerPageOptions={rowsPerPageOptions}
-                        rowsPerPageLabel={rowsPerPageLabel}
-                        rowsPerPageTextAfter={rowsPerPageTextAfter}
+                        label={rowsPerPageLabel}
+                        textAfterLabel={rowsPerPageTextAfter}
                         style={null}
                         onChange={handleChangeRowsPerPage}
                     />
+                )}
+                {searchBar && (
+                    <SearchBar
+                        onChange={(e) => handleSearch(e.target.value)}
+                        placeholder={searchBarPlaceholder}
+                    ></SearchBar>
                 )}
             </DataTableHeader>
             <DataTableContent
@@ -172,7 +187,11 @@ export default function DataTable({
                     className="dataTableContentBody"
                     role="rowgroup"
                     style={styles.dataTableContentBody}
-                    minRows={sortedData.length<rowsPerPage && currentPage===1 ? sortedData.length : rowsPerPage}
+                    minRows={
+                        sortedData.length < rowsPerPage && currentPage === 1
+                            ? sortedData.length
+                            : rowsPerPage
+                    }
                 >
                     {visibleRows.map((dataRow, index) => (
                         <DataTableRow
@@ -225,8 +244,8 @@ export default function DataTable({
                     <SelectRowsPerPage
                         rowsPerPage={rowsPerPage}
                         rowsPerPageOptions={rowsPerPageOptions}
-                        rowsPerPageLabel={rowsPerPageLabel}
-                        rowsPerPageTextAfter={rowsPerPageTextAfter}
+                        label={rowsPerPageLabel}
+                        textAfterLabel={rowsPerPageTextAfter}
                         style={null}
                         onChange={handleChangeRowsPerPage}
                     />
