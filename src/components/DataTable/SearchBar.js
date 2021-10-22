@@ -1,33 +1,48 @@
 import styled from 'styled-components'
 import uniqueId from 'lodash/uniqueId'
+import { ReactComponent as LogoSearchIcon } from '../../icons/search-solid.svg'
+import { darken, lighten, transparentize } from 'polished'
 
 const StyledSearchBarContainer = styled.div`
     display: flex;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0px 15px 15px;
+    padding: 15px 0 0 0;
+    margin: auto 15px auto auto;
     ${({ style }) => style};
+    position: relative;
+    width: 20%;
+    min-width: 12em;
+    border-radius: 5px;
 `
 
 const StyledSearchBarInput = styled.input`
-    width: 12em;
+    width: 100%;
     height: 2em;
-    border: solid 1px lightgrey;
     border-radius: 5px;
-    box-shadow: 1px 1px 2px lightgrey;
-    color: grey;
-    padding: 0px 10px;
+    ${({ colors }) => `
+        color: ${darken(0.3, colors.primaryColor)};
+        border: solid 1px ${colors.primaryColor};
+        box-shadow: 1px 1px 2px lightgrey;
+        &::placeholder {
+            color: ${darken(0.15, colors.primaryColor)};
+        }
+    `}
+    padding: 0 30px 0 10px;
     font-size: 1em;
-    &::placeholder {
-        color: lightgrey;
-    }
 `
 
 const StyledSearchBarLabel = styled.label``
 
-export function SearchBar({ style, label, onChange, placeholder }) {
-    const id = uniqueId('searchBar-')
+const StyledLogoSearchIcon = styled(LogoSearchIcon)`
+    position: absolute;
+    width: 1em;
+    right: 10px;
+`
 
+export function SearchBar({ style, label, onChange, placeholder, colors }) {
+    const id = uniqueId('searchBar-')
     return (
         <StyledSearchBarContainer className="dataTableSearchBar">
             {label && (
@@ -44,7 +59,9 @@ export function SearchBar({ style, label, onChange, placeholder }) {
                 id={id}
                 type="text"
                 placeholder={placeholder}
+                colors={colors}
             ></StyledSearchBarInput>
+            <StyledLogoSearchIcon fill={darken(0.15, colors.primaryColor)} />
         </StyledSearchBarContainer>
     )
 }

@@ -1,24 +1,25 @@
 import styled from 'styled-components'
+import { lighten, transparentize } from 'polished'
 
 const StyledPaginationContainer = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 15px;
+    padding: 15px 15px 0;
     ${({ style }) => style};
 `
 
 const StyledButtonChangePage = styled.button`
-    width: 30px;
-    height: 30px;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     box-sizing: border-box;
     background-color: transparent;
-    outline: 0;
+    outline: none;
     border: none;
     margin: 0;
     user-select: none;
@@ -28,6 +29,7 @@ const StyledButtonChangePage = styled.button`
     flex: 0 0 auto;
     padding: 5px;
     border-radius: 100%;
+    -webkit-tap-highlight-color: transparent;
     overflow: hidden;
     transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     & svg {
@@ -36,23 +38,26 @@ const StyledButtonChangePage = styled.button`
         margin: 0 2px;
     }
 
-    ${({ disable }) => {
+    ${({ disable, colors }) => {
         if (disable) {
             return `
                 & path {
-                    fill: lightgrey;
+                    fill: ${transparentize(0.8, colors.primaryColor)};
                 }
             `
         } else {
             return `
                 cursor: pointer;
                 & path {
-                    fill: grey;
+                    fill: ${colors.primaryColor};
                 }
                 &:hover {
-                    background-color: rgba(0, 0, 0, 0.04);
+                    background-color: ${transparentize(
+                        0.9,
+                        colors.primaryColor
+                    )};
                     & path {
-                        fill: darkgrey;
+                        fill: ${transparentize(0.5, colors.primaryColor)};
                     }
                 }
 
@@ -78,12 +83,13 @@ const StyledButtonChangePage = styled.button`
             `
         }
     }}
-    ${({ style }) => style};
 `
 
 const StyledPageCounter = styled.div`
-    margin: 2px 10px;
-    color: grey;
+    margin: 2px 5px;
+    color: ${({ colors }) => colors.primaryColor};
+    white-space: break-spaces;
+    text-align: center;
 `
 
 export function Pagination({
@@ -93,6 +99,7 @@ export function Pagination({
     totalRows,
     style,
     onChangePage,
+    colors,
 }) {
     const handlePreviousPage = () => onChangePage(currentPage - 1)
     const handleNextPage = () => onChangePage(currentPage + 1)
@@ -116,6 +123,7 @@ export function Pagination({
                     <StyledButtonChangePage
                         onClick={handleFirstPage}
                         disable={isFirstPage}
+                        colors={colors}
                     >
                         <svg
                             aria-hidden="true"
@@ -131,6 +139,7 @@ export function Pagination({
                     <StyledButtonChangePage
                         onClick={handlePreviousPage}
                         disable={isFirstPage}
+                        colors={colors}
                     >
                         <svg
                             aria-hidden="true"
@@ -144,12 +153,13 @@ export function Pagination({
                     </StyledButtonChangePage>
                 </>
             )}
-            <StyledPageCounter>
+            <StyledPageCounter colors={colors}>
                 {`${firstRow}-${lastRow} of ${totalRows} entries`}
             </StyledPageCounter>
             <StyledButtonChangePage
                 onClick={handleNextPage}
                 disable={isLastPage}
+                colors={colors}
             >
                 <svg
                     aria-hidden="true"
@@ -164,6 +174,7 @@ export function Pagination({
             <StyledButtonChangePage
                 onClick={handleLastPage}
                 disable={isLastPage}
+                colors={colors}
             >
                 <svg
                     aria-hidden="true"

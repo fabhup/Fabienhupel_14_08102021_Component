@@ -1,14 +1,17 @@
 export const defaultColors = {
-    primaryColor: '#455A64',
-    secondaryColor: '#455A64',
-    stripedColor: '#ECEFF1',
+    primaryColor: '#37474F',
+    primaryColorBackground: 'white',
+    secondaryColor: '#ECEFF1',
+    secondaryColorBackground: '#455A64',
+    stripedColor: '#37474F',
+    stripedColorBackground: '#ECEFF1',
 }
-export const defaultStyles = ({ colors = defaultColors }) => {
+
+export const defaultStyles = (colors) => {
     return {
         dataTableContainer: {
-            fontSize: '1em',
+            fontSize: '1.2em',
             color: colors.primaryColor,
-            backgroundColor: null,
             fontFamily: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif',
         },
         dataTableHeader: {
@@ -17,13 +20,20 @@ export const defaultStyles = ({ colors = defaultColors }) => {
         dataTableContent: {},
         dataTableContentHeader: {
             fontWeight: 'bold',
+            color: colors.secondaryColor,
+            background: colors.secondaryColorBackground,
+            fontSize: '1.1em',
+        },
+        dataTableContentBody: {
             color: colors.primaryColor,
         },
-        dataTableContentBody: {},
         dataTableContentFooter: {},
         dataTableColumn: {},
-        dataTableFooter: {},
+        dataTableFooter: {
+            fontSize: '1.1em',
+        },
         dataTableRow: {},
         dataTableCell: {},
+        stylePagination: {},
     }
 }

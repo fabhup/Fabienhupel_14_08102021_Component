@@ -1,15 +1,17 @@
 import styled from 'styled-components'
+import { transparentize } from 'polished'
 
 const StyledDataTableContentWrapper = styled.div`
-    width: 100%;
     overflow: hidden;
-    ${({ dataTableBorderPosition }) =>
-        dataTableBorderPosition === 'content' &&
-        `   border: solid 1px lightgrey;
+    ${({ dataTableBorderPosition, colors }) =>
+        dataTableBorderPosition === 'content'
+            ? `   border: solid 1px ${transparentize(0.7, colors.primaryColor)};
             border-radius: 5px;
-            box-shadow: 10px 10px 5px 20px lightgrey;
+            margin: 0 15px;
             -webkit-mask-image: -webkit-radial-gradient(white, black);
-    `};
+    `
+            : `margin-bottom: -1px;
+`};
 `
 
 const StyledDataTableContent = styled.div`
@@ -17,11 +19,12 @@ const StyledDataTableContent = styled.div`
     display: grid;
     padding: 0px;
     overflow: auto;
+    z-index: 2;
     &::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 3px rgb(0 0 0 / 10%);
         border-radius: 0px;
         background-color: snow;
-        margin-top: 39px;
+        margin-top: 2.35em;
         position: relative;
         top: 0;
         left: 0;
@@ -35,33 +38,42 @@ const StyledDataTableContent = styled.div`
         padding: 4px;
     }
 
-    &::-webkit-scrollbar-thumb {
+    ${({ colors }) =>
+        `&::-webkit-scrollbar-thumb {
         border-radius: 100px;
         -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 20%);
         border: 4px solid transparent;
         background-clip: content-box;
-        background-color: #0277bd;
+        background-color: ${colors.secondaryColor};
     }
     &::-webkit-scrollbar-corner {
         background-color: snow;
         -webkit-box-shadow: inset 0 0 3px rgb(0 0 0 / 5%);
     }
-    scrollbar-color: #0277bd snow;
+    scrollbar-color: ${colors.secondaryColor} snow;
     scrollbar-width: 10px;
+    `}
     ${({ style }) => style};
 `
 
-export function DataTableContent({ children, style, dataTableBorderPosition }) {
+export function DataTableContent({
+    children,
+    style,
+    dataTableBorderPosition,
+    colors,
+}) {
     return (
         <>
             <StyledDataTableContentWrapper
                 className="dataTableContentWrapper"
                 dataTableBorderPosition={dataTableBorderPosition}
+                colors={colors}
             >
                 <StyledDataTableContent
                     className="dataTableContent"
                     role="table"
                     style={style}
+                    colors={colors}
                 >
                     {children}
                 </StyledDataTableContent>

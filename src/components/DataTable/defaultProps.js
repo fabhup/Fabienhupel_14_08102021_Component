@@ -8,4 +8,10 @@ export const defaultProps = {
     rowsPerPageTextAfter: '',
     searchBar: true,
     searchBarPlaceholder: 'Search',
+    fontFamily: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif',
+    pagination: true,
+    dataTableCellMinWidth: '6em',
+    showHeader: true,
+    dataTableRowsBorder: false,
+    dataTableRowsHeight: '3em',
 }

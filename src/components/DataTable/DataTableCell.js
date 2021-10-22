@@ -1,19 +1,18 @@
 import styled from 'styled-components'
 
 const StyledDataTableCell = styled.div`
-    ${({ column }) =>
+    ${({ column, minWidth }) =>
         column.widthRatio > 0
             ? `
         flex: ${column.widthRatio} 0 0;
-        min-width: ${column.widthRatio * 6}em;
+        min-width: calc(${column.widthRatio} * ${minWidth});
     `
             : `
         flex: 1 0 0;
-        min-width: 6em;
+        min-width: ${minWidth};
         `}
     display: flex;
     align-items: center;
-    align-content: stretch;
     max-width: 100%;
     padding: 5px 10px;
     ${({ activeSort }) => activeSort && 'background: rgba(0, 0, 0, 0.03);'}
@@ -39,7 +38,7 @@ const StyledDataTableCell = styled.div`
     ${({ style }) => style};
 `
 
-export function DataTableCell({ column, activeSort, style, value }) {
+export function DataTableCell({ column, activeSort, style, value, minWidth }) {
     return (
         <StyledDataTableCell
             className="dataTableCell"
@@ -47,6 +46,7 @@ export function DataTableCell({ column, activeSort, style, value }) {
             column={column}
             activeSort={activeSort}
             style={style}
+            minWidth={minWidth}
         >
             <div className="dataTableCellValue">{value}</div>
         </StyledDataTableCell>

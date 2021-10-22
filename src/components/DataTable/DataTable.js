@@ -25,17 +25,30 @@ export default function DataTable({
     data,
     columns,
     striped = false,
-    stripedColor = defaultColors.stripedColor,
-    colors = defaultColors,
+    customColors = defaultColors,
+    primaryColor = customColors.primaryColor || defaultColors.primaryColor,
+    primaryColorBackground = customColors.primaryColorBackground ||
+        defaultColors.primaryColorBackground,
+    secondaryColor = customColors.secondaryColor ||
+        defaultColors.secondaryColor,
+    secondaryColorBackground = customColors.secondaryColorBackground ||
+        defaultColors.secondaryColorBackground,
+    stripedColor = customColors.stripedColor || defaultColors.stripedColor,
+    stripedColorBackground = customColors.stripedColorBackground ||
+        defaultColors.stripedColorBackground,
     dataTableBorderPosition = defaultProps.dataTableBorderPosition,
+    dataTableCellMinWidth = defaultProps.dataTableCellMinWidth,
+    dataTableRowsHeight = defaultProps.dataTableRowsHeight,
     rowsPerPageDefault = defaultProps.rowsPerPageDefault,
     rowsPerPageOptions = defaultProps.rowsPerPageOptions,
     rowsPerPagePosition = defaultProps.rowsPerPagePosition,
     rowsPerPageLabel = defaultProps.rowsPerPageLabel,
     rowsPerPageTextAfter = defaultProps.rowsPerPageTextAfter,
-    pagination = true,
+    dataTableRowsBorder = defaultProps.dataTableRowsBorder,
+    pagination = defaultProps.pagination,
     searchBar = defaultProps.searchBar,
     searchBarPlaceholder = defaultProps.searchBarPlaceholder,
+    showHeader = defaultProps.showHeader,
     styleDataTableContainer,
     styleDataTableHeader,
     styleDataTableContent,
@@ -46,8 +59,19 @@ export default function DataTable({
     styleDataTableFooter,
     styleDataTableRow,
     styleDataTableCell,
+    stylePagination,
 }) {
     // if a style parameter for a component is define it will replace the same parameter from defaultStyles but keep all other defaultStyles parameters
+    const colors = {
+        ...customColors,
+        primaryColor: primaryColor,
+        primaryColorBackGround: primaryColorBackground,
+        secondaryColor: secondaryColor,
+        primaryColorBackground: primaryColorBackground,
+        secondaryColorBackground: secondaryColorBackground,
+        stripedColor: stripedColor,
+        stripedColorBackground: stripedColorBackground,
+    }
     const styles = {
         dataTableContainer: {
             ...defaultStyles(colors).dataTableContainer,
@@ -88,6 +112,10 @@ export default function DataTable({
         dataTableCell: {
             ...defaultStyles(colors).dataTableCell,
             ...styleDataTableCell,
+        },
+        stylePagination: {
+            ...defaultStyles(colors).stylePagination,
+            ...stylePagination,
         },
     }
     const { filteredData, activeFilter, filterData } = useFilterData(data)
@@ -136,42 +164,50 @@ export default function DataTable({
             className="dataTableContainer"
             style={styles.dataTableContainer}
             dataTableBorderPosition={dataTableBorderPosition}
+            colors={colors}
         >
-            <DataTableHeader
-                className="dataTableHeader"
-                role="heading"
-                style={styles.dataTableHeader}
-            >
-                {pagination && rowsPerPagePosition === 'top' && (
-                    <SelectRowsPerPage
-                        rowsPerPage={rowsPerPage}
-                        rowsPerPageOptions={rowsPerPageOptions}
-                        label={rowsPerPageLabel}
-                        textAfterLabel={rowsPerPageTextAfter}
-                        style={null}
-                        onChange={handleChangeRowsPerPage}
-                    />
-                )}
-                {searchBar && (
-                    <SearchBar
-                        onChange={(e) => handleSearch(e.target.value)}
-                        placeholder={searchBarPlaceholder}
-                    ></SearchBar>
-                )}
-            </DataTableHeader>
+            {showHeader && (
+                <DataTableHeader
+                    className="dataTableHeader"
+                    role="heading"
+                    style={styles.dataTableHeader}
+                >
+                    {pagination && rowsPerPagePosition === 'top' && (
+                        <SelectRowsPerPage
+                            rowsPerPage={rowsPerPage}
+                            rowsPerPageOptions={rowsPerPageOptions}
+                            label={rowsPerPageLabel}
+                            textAfterLabel={rowsPerPageTextAfter}
+                            style={null}
+                            onChange={handleChangeRowsPerPage}
+                            colors={colors}
+                        />
+                    )}
+                    {searchBar && (
+                        <SearchBar
+                            onChange={(e) => handleSearch(e.target.value)}
+                            placeholder={searchBarPlaceholder}
+                            colors={colors}
+                        ></SearchBar>
+                    )}
+                </DataTableHeader>
+            )}
             <DataTableContent
                 style={styles.dataTableContent}
                 dataTableBorderPosition={dataTableBorderPosition}
+                colors={colors}
             >
                 <DataTableContentHeader
                     className="dataTableContentHeader"
                     role="rowgroup"
                     style={styles.dataTableContentHeader}
+                    colors={colors}
                 >
                     {columns.map((column) => (
                         <DataTableColumn
                             key={column.key}
                             column={column}
+                            minWidth={dataTableCellMinWidth}
                             style={styles.dataTableColumn}
                             activeSort={
                                 activeSort && activeSort.key === column.key
@@ -192,6 +228,7 @@ export default function DataTable({
                             ? sortedData.length
                             : rowsPerPage
                     }
+                    rowsHeight={dataTableRowsHeight}
                 >
                     {visibleRows.map((dataRow, index) => (
                         <DataTableRow
@@ -201,7 +238,9 @@ export default function DataTable({
                             key={index}
                             rowIndex={index}
                             striped={striped && isEven(index)}
-                            stripedColor={stripedColor}
+                            colors={colors}
+                            rowsBorder={dataTableRowsBorder}
+                            rowsHeight={dataTableRowsHeight}
                         >
                             {columns.map((column, index) => (
                                 <DataTableCell
@@ -213,6 +252,7 @@ export default function DataTable({
                                     }
                                     key={index}
                                     column={column}
+                                    minWidth={dataTableCellMinWidth}
                                     activeSort={
                                         activeSort &&
                                         activeSort.key === column.key
@@ -227,7 +267,9 @@ export default function DataTable({
                         <DataTableEmptyRows
                             className="dataTableEmptyRows"
                             emptyRows={rowsPerPage - visibleRows.length}
-                            stripedColor={stripedColor}
+                            colors={colors}
+                            rowsHeight={dataTableRowsHeight}
+                            rowsBorder={dataTableRowsBorder}
                         ></DataTableEmptyRows>
                     )}
                 </DataTableContentBody>
@@ -236,31 +278,35 @@ export default function DataTable({
                     style={styles.dataTableContentFooter}
                 ></DataTableContentFooter>
             </DataTableContent>
-            <DataTableFooter
-                className="dataTableFooter"
-                style={styles.dataTableFooter}
-            >
-                {pagination && rowsPerPagePosition === 'bottom' && (
-                    <SelectRowsPerPage
-                        rowsPerPage={rowsPerPage}
-                        rowsPerPageOptions={rowsPerPageOptions}
-                        label={rowsPerPageLabel}
-                        textAfterLabel={rowsPerPageTextAfter}
-                        style={null}
-                        onChange={handleChangeRowsPerPage}
-                    />
-                )}
-                {
-                    <Pagination
-                        currentPage={currentPage}
-                        rowsPerPage={rowsPerPage}
-                        totalPages={totalPages}
-                        totalRows={sortedData.length}
-                        style={null}
-                        onChangePage={handleChangePage}
-                    />
-                }
-            </DataTableFooter>
+            {(pagination || rowsPerPagePosition === 'bottom') && (
+                <DataTableFooter
+                    className="dataTableFooter"
+                    style={styles.dataTableFooter}
+                >
+                    {rowsPerPagePosition === 'bottom' && (
+                        <SelectRowsPerPage
+                            rowsPerPage={rowsPerPage}
+                            rowsPerPageOptions={rowsPerPageOptions}
+                            label={rowsPerPageLabel}
+                            textAfterLabel={rowsPerPageTextAfter}
+                            style={null}
+                            onChange={handleChangeRowsPerPage}
+                            colors={colors}
+                        />
+                    )}
+                    {pagination && (
+                        <Pagination
+                            currentPage={currentPage}
+                            rowsPerPage={rowsPerPage}
+                            totalPages={totalPages}
+                            totalRows={sortedData.length}
+                            style={stylePagination}
+                            onChangePage={handleChangePage}
+                            colors={colors}
+                        />
+                    )}
+                </DataTableFooter>
+            )}
         </DataTableContainer>
     )
 }
