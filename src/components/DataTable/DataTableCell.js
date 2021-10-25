@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledDataTableCell = styled.div`
     ${({ column, minWidth }) =>
@@ -52,9 +53,19 @@ export function DataTableCell({ column, activeSort, style, value, minWidth }) {
         </StyledDataTableCell>
     )
 }
-// style={styles.dataTableCell}
-//                             role="gridcell"
-//                             value={!dataRow[column.key] ? "" : dataRow[column.key]}
-//                             key={index}
-//                             column={column}
-//                             activeSort={activeSort && activeSort.key === column.key ? activeSort : null}
+
+DataTableCell.propTypes = {
+    column: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        key: PropTypes.string.isRequired,
+        format: PropTypes.string.isRequired,
+    }),
+    activeSort: PropTypes.shape({
+        key: PropTypes.string,
+        format: PropTypes.string,
+        direction: PropTypes.string,
+    }),
+    style: PropTypes.shape(),
+    value: PropTypes.string.isRequired,
+    minWidth: PropTypes.string,
+}

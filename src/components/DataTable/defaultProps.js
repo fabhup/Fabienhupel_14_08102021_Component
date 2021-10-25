@@ -1,7 +1,7 @@
 export const defaultProps = {
     // rowsPerPageOptions: [10, 25, 50, 100],
     dataTableBorderPosition: 'content',
-    rowsPerPageOptions: [5, 10, 20, 50, 100],
+    rowsPerPageOptions: [2, 5, 10, 20, 50, 100],
     rowsPerPagePosition: 'top',
     rowsPerPageDefault: 10,
     rowsPerPageLabel: 'Rows per page',
@@ -9,9 +9,10 @@ export const defaultProps = {
     searchBar: true,
     searchBarPlaceholder: 'Search',
     fontFamily: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif',
-    pagination: true,
+    showPagination: true,
     dataTableCellMinWidth: '6em',
-    showHeader: true,
+    showdataTableHeader: true,
     dataTableRowsBorder: false,
-    dataTableRowsHeight: '3em',
+    dataTableRowsHeight: '3rem',
+    showDataTableRowCard: true,
 }

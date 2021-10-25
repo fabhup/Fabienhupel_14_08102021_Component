@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { lighten, transparentize } from 'polished'
+import { transparentize } from 'polished'
+import PropTypes from 'prop-types'
 
 const StyledPaginationContainer = styled.div`
     width: 100%;
@@ -16,20 +17,17 @@ const StyledButtonChangePage = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     box-sizing: border-box;
     background-color: transparent;
-    outline: none;
     border: none;
     margin: 0;
-    user-select: none;
     vertical-align: middle;
     text-decoration: none;
     text-align: center;
     flex: 0 0 auto;
+    position: inherit;
     padding: 5px;
     border-radius: 100%;
-    -webkit-tap-highlight-color: transparent;
     overflow: hidden;
     transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     & svg {
@@ -66,8 +64,9 @@ const StyledButtonChangePage = styled.button`
                     background: rgba(0, 0, 0, 0.4);
                     display: block;
                     position: absolute;
-                    padding-top: 100%;
-                    padding-left: 100%;
+
+                    padding-top: 2%;
+                    padding-left: 2%;
                     opacity: 0;
                     border-radius: 100%;
                     transition: all 0.4s;
@@ -157,6 +156,7 @@ export function Pagination({
                 {`${firstRow}-${lastRow} of ${totalRows} entries`}
             </StyledPageCounter>
             <StyledButtonChangePage
+                tabIndex={0}
                 onClick={handleNextPage}
                 disable={isLastPage}
                 colors={colors}
@@ -175,6 +175,7 @@ export function Pagination({
                 onClick={handleLastPage}
                 disable={isLastPage}
                 colors={colors}
+                tabIndex={'0'}
             >
                 <svg
                     aria-hidden="true"
@@ -189,4 +190,14 @@ export function Pagination({
             </StyledButtonChangePage>
         </StyledPaginationContainer>
     )
+}
+
+Pagination.propTypes = {
+    currentPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired,
+    totalRows: PropTypes.number.isRequired,
+    style: PropTypes.shape(),
+    onChangePage: PropTypes.func.isRequired,
+    colors: PropTypes.shape(),
 }

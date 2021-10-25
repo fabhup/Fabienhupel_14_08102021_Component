@@ -9,29 +9,14 @@ export const defaultColors = {
 
 export const defaultStyles = (colors) => {
     return {
-        dataTableContainer: {
-            fontSize: '1.2em',
-            color: colors.primaryColor,
-            fontFamily: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif',
-        },
-        dataTableHeader: {
-            fontSize: '1em',
-        },
+        dataTableContainer: {},
+        dataTableHeader: {},
         dataTableContent: {},
-        dataTableContentHeader: {
-            fontWeight: 'bold',
-            color: colors.secondaryColor,
-            background: colors.secondaryColorBackground,
-            fontSize: '1.1em',
-        },
-        dataTableContentBody: {
-            color: colors.primaryColor,
-        },
+        dataTableContentHeader: {},
+        dataTableContentBody: {},
         dataTableContentFooter: {},
         dataTableColumn: {},
-        dataTableFooter: {
-            fontSize: '1.1em',
-        },
+        dataTableFooter: {},
         dataTableRow: {},
         dataTableCell: {},
         stylePagination: {},

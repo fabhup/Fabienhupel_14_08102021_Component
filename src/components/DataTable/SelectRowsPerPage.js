@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import uniqueId from 'lodash/uniqueId'
-import { darken } from 'polished'
+import { darken, transparentize } from 'polished'
+import PropTypes from 'prop-types'
 
 const StyledRowsPerPageContainer = styled.div`
     display: flex;
@@ -31,7 +32,6 @@ const StyledRowsPerPageSelector = styled.select`
     box-shadow: 1px 1px 2px lightgrey;
     font-size: 1em;
     cursor: pointer;
-    font-weight: 500;
     text-align: center;
     -webkit-appearance: initial;
     position: relative;
@@ -41,7 +41,7 @@ const StyledRowsPerPageSelector = styled.select`
     background-repeat: no-repeat;
     ${({ colors }) =>
         `color: ${darken(0.25, colors.primaryColor)};
-        border: solid 1px ${colors.primaryColor};
+        border: solid 1px ${transparentize(0.5, colors.primaryColor)};
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' height='10px' width='15px'%3E%3Ctext x='0' y='10' 
         fill='${darken(0.25, colors.primaryColor).replace(
             '#',
@@ -54,7 +54,6 @@ export function SelectRowsPerPage({
     rowsPerPageOptions,
     label,
     textAfterLabel,
-    style,
     onChange,
     colors,
 }) {
@@ -84,4 +83,13 @@ export function SelectRowsPerPage({
             </StyledRowsPerPageLabel>
         </StyledRowsPerPageContainer>
     )
+}
+
+SelectRowsPerPage.propTypes = {
+    rowsPerPage: PropTypes.number.isRequired,
+    rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
+    label: PropTypes.string,
+    textAfterLabel: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    colors: PropTypes.shape(),
 }

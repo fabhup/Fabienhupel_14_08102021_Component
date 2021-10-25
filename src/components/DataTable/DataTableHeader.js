@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 export const DataTableHeader = styled.div`
     display: flex;
@@ -10,3 +11,6 @@ export const DataTableHeader = styled.div`
     width: 100%;
     ${({ style }) => style};
 `
+DataTableHeader.propTypes = {
+    style: PropTypes.shape(),
+}

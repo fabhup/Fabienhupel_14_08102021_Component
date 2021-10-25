@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import sortDownIcon from '../../icons/sort-down-solid.svg'
 import sortUpIcon from '../../icons/sort-up-solid.svg'
 import sortableIcon from '../../icons/sort-solid.svg'
+import PropTypes from 'prop-types'
 
 const StyledDataTableColumn = styled.div`
     ${({ column, minWidth }) =>
@@ -67,12 +68,13 @@ const StyledDataTableColumn = styled.div`
 `
 
 export function DataTableColumn({
-    style,
     column,
     minWidth,
     activeSort,
     onClick,
+    onKeyPress,
     colors,
+    style,
 }) {
     return (
         <StyledDataTableColumn
@@ -83,9 +85,29 @@ export function DataTableColumn({
             minWidth={minWidth}
             activeSort={activeSort}
             onClick={onClick}
+            onKeyPress={onKeyPress}
             colors={colors}
+            tabIndex={0}
         >
             {column.title}
         </StyledDataTableColumn>
     )
+}
+
+DataTableColumn.propTypes = {
+    column: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        key: PropTypes.string.isRequired,
+        format: PropTypes.string.isRequired,
+    }),
+    minWidth: PropTypes.string,
+    activeSort: PropTypes.shape({
+        key: PropTypes.string,
+        format: PropTypes.string,
+        direction: PropTypes.string,
+    }),
+    colors: PropTypes.shape(),
+    style: PropTypes.shape(),
+    onClick: PropTypes.func,
+    onKeyPress: PropTypes.func,
 }

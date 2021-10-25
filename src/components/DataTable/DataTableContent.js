@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { transparentize } from 'polished'
+import PropTypes from 'prop-types'
 
 const StyledDataTableContentWrapper = styled.div`
     overflow: hidden;
@@ -8,7 +9,6 @@ const StyledDataTableContentWrapper = styled.div`
             ? `   border: solid 1px ${transparentize(0.7, colors.primaryColor)};
             border-radius: 5px;
             margin: 0 15px;
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
     `
             : `margin-bottom: -1px;
 `};
@@ -80,4 +80,10 @@ export function DataTableContent({
             </StyledDataTableContentWrapper>
         </>
     )
+}
+
+DataTableContent.propTypes = {
+    dataTableBorderPosition: PropTypes.string,
+    colors: PropTypes.shape(),
+    style: PropTypes.shape(),
 }
