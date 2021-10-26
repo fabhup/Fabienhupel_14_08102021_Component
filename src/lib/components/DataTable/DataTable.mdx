@@ -1,0 +1,426 @@
+<!-- DataTable.stories.mdx -->
+
+# DataTable Component <br/>
+
+### **<span style={{color: 'grey',fontSize:'1.2em'}}> &nbsp;&nbsp;`<DataTable data={data} columns={columns} ...otherOptionalProps />`</span>**<br/><br/>
+
+### **This component can be used to display data in a Datatable React Component.**
+
+### **It can be customized with several optional props. Several parameters component can be used to display data informations in a Datatable React Component.**
+
+<br />
+
+### **[ - Required Props](#required-props)**
+
+### **[ - Optional Props](#optional-props)**
+
+<br />
+<br />
+
+## Required Props
+
+<br />
+
+-   ### _**data**_ :
+
+    -   This Prop is **Required**
+    -   **Format** : Array of objects (each object represents a row of data)
+    -   **row.keys** : keys of rows objects _**must be the same as columns.key**_
+    -   **row.values** : format string, number, or date (dates as string)
+    -   _**Example**_ :
+
+            [
+                {
+                    id: 1,
+                    firstName: 'John',
+                    lastName: 'Parks',
+                    dateOfBirth: '1980-10-01',
+                    startDate: '2015-09-01',
+                    department: 'Human Resources',
+                    street: '10 Downing Street',
+                    city: 'London',
+                    state: 'UK',
+                    zipCode: 'SW1A2AB',
+                },
+                {
+                    id: 2,
+                    firstName: 'Peter',
+                    lastName: 'Edwards',
+                    dateOfBirth: '1958-03-15',
+                    startDate: '2007-11-29',
+                    department: 'IT',
+                    street: '5 Helmet Row',
+                    city: 'London',
+                    state: 'UK',
+                    zipCode: 'EC1V3QJ',
+                },
+                ...
+            ]
+
+        <br />
+        <br />
+
+-   ### _**columns**_ :
+
+    -   This Prop is **Required**
+    -   **Format** : Array of objects (columns=[column1, column2, ...]).
+        Each column item must be an object with specific keys
+    -   **column.Keys ** : used to specified specific parameters on each column (several required parameters and optionals parameters)
+
+        > **Required keys** for each column object :
+        >
+        > -   **title**: title of the column to display on dataTableContentHeader
+        > -   **key**: key of the column (must be the same as "data.row" keys)
+        > -   **format**: format of values in data.row[column.key] (possible values : 'string', 'number' or 'date')
+        >
+        > **Optional keys** for each column object :
+        >
+        > -   **splitContent**: if true, content will be split if necessary on several rows if greater than width of column (boolean, default to false)
+        > -   **splitContentRows**: max number of rows for split rows if splitContent is set to true. (number, default to 1)
+        > -   **widthRatio**: parameter to change maxWidth of a column (ex : 2 or 3 for a large column & 0.5 for a short column) (number, default to 1) <br /> <br />
+
+    -   _**Example**_ :
+
+            [
+                {
+                    title: 'First Name',  // required : the title of column to display on dataTableContentHeader
+                    key: 'firstName', // required : the key of column (must be the same as "data" keys)
+                    format: 'string', // required : used to define format of column values to apply sort data depending on format
+                    splitContent: true, // optional (default to false) : used to define if content can be split on several rows
+                    splitContentRows: 2, // optional (default to 1): used to define the max number of rows for split rows
+                    widthRatio: 1, // optional (default to 1): used (default to 1) to change the maxWidth of a column (ex : 2 or 3 for large columns 0.5 for short columns)
+                },
+
+                {
+                    title: 'Last Name',
+                    key: 'lastName',
+                    format: 'string',
+                },
+                ...
+            ]
+
+<br />
+
+## Optional Props
+
+<br />
+
+-   ### _**striped**_ :
+
+    -   This Prop is **Optional**
+    -   **Default Value** : **true**
+    -   **Format** : Boolean
+    -   **Description** : parameter to active or disable striped rows (if true, striped rows is activated)
+
+    <br />
+
+-   ### _**customColors**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : Object of colors (customColors={primaryColor: 'red', primaryColorBackground:'#ffffff'...}).
+    -   **Description** : parameter to apply custom colors on dataTable elements
+    -   **Default Value** : defaultColors
+    -   **Possible Keys** :
+        > -   **primaryColor** (optional : defaultColors.primaryColor if not defined)
+        > -   **primaryColorBackground** (optional : defaultColors.primaryColorBackground if not defined)
+        > -   **secondaryColor** (optional : defaultColors.secondaryColor if not defined)
+        > -   **secondaryColorBackground** (optional : defaultColors.secondaryColorBackground if not defined)
+        > -   **stripedColor** (optional : defaultColors.stripedColor if not defined)
+        > -   **stripedColorBackground** (optional : defaultColors.stripedColorBackground if not defined)<br /> <br />
+    -   _**Example**_ :
+
+            {
+                primaryColor: '#545454',
+                primaryColorBackground: 'white',
+                secondaryColor: '#73797e',
+                secondaryColorBackground: '#ffffff',
+                stripedColor: '#5a5a5a',
+                stripedColorBackground: '#f2f4f6',
+            }
+
+        <br />
+
+-   ### _**primaryColor**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid color string (ex : primaryColor = 'white' or primaryColor = '#ffffff').
+    -   **Description** : parameter to define directly the primaryColor for styling dataTable elements
+    -   **Default Value** : customColors.primaryColor (if defined) || defaultColors.primaryColor<br /><br />
+
+-   ### _**primaryColorBackground**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid color string (ex : primaryColorBackground = 'white' or primaryColorBackground = '#ffffff').
+    -   **Description** : parameter to define directly the primaryColorBackground for styling dataTable elements
+    -   **Default Value** : customColors.primaryColorBackground (if defined) || defaultColors.primaryColorBackground
+        <br />
+        <br />
+
+-   ### _**secondaryColor**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid color string (ex : secondaryColor = 'white' or secondaryColor = '#ffffff').
+    -   **Description** : parameter to define directly the secondaryColor for styling dataTable elements
+    -   **Default Value** : customColors.secondaryColor (if defined) || defaultColors.secondaryColor
+        <br />
+        <br />
+
+-   ### _**secondaryColorBackground**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid color string (ex : secondaryColorBackground = 'white' or secondaryColorBackground = '#ffffff').
+    -   **Description** : parameter to define directly the secondaryColorBackground for styling dataTable elements
+    -   **Default Value** : customColors.secondaryColorBackground (if defined) || defaultColors.secondaryColorBackground
+        <br />
+        <br />
+
+-   ### _**stripedColor**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid color string (ex : stripedColor = 'white' or stripedColor = '#ffffff').
+    -   **Description** : parameter to define directly the stripedColor for styling dataTable elements
+    -   **Default Value** : customColors.stripedColor (if defined) || defaultColors.stripedColor
+        <br />
+        <br />
+
+-   ### _**stripedColorBackground**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid color string (ex : stripedColorBackground = 'white' or stripedColorBackground = '#ffffff').
+    -   **Description** : parameter to define directly the stripedColorBackground for styling dataTable elements
+    -   **Default Value** : customColors.stripedColorBackground (if defined) || defaultColors.stripedColorBackground
+        <br />
+        <br />
+
+-   ### _**dataTableBorderPosition**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : string (ex : dataTableBorderPosition = 'container').
+    -   **Description** : parameter to change style of dataTable disposition
+    -   **Possible values** : 'content', 'container' or 'no border'
+    -   **Default Value** : 'content'
+        <br />
+        <br />
+
+-   ### _**dataTableCellMinWidth**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid size value (ex : dataTableCellMinWidth = '5em' or '50px').
+    -   **Description** : parameter to define the minwidth of cells of dataTable
+    -   **Default Value** : '6em'
+        <br />
+        <br />
+
+-   ### _**dataTableRowsHeight**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid size value (ex : dataTableRowsHeight = '3em' or '30px').
+    -   **Description** : parameter to define the height of rows
+    -   **Default Value** : '3rem'
+        <br />
+        <br />
+
+-   ### _**rowsPerPageDefault**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : number (ex : rowsPerPageDefault = 10).
+    -   **Description** : parameter to define the defaultValue of rowsPerPageSelector on opening dataTable
+    -   **Default Value** : 10
+        <br />
+        <br />
+
+-   ### _**rowsPerPageOptions**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : array of number (ex : rowsPerPageOptions= [10, 20, 50, 100]).
+    -   **Description** : parameter to define the options values of rowsPerPageSelector
+    -   **Default Value** : [5, 10, 20, 50, 100]
+        <br />
+        <br />
+
+-   ### _**rowsPerPagePosition**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : string (ex : rowsPerPagePosition= 'top')
+    -   **Description** : parameter to define position of rowsPerPageSelector in the dataTable
+    -   **Possible values** : 'top', 'bottom'
+    -   **Default Value** : 'top'
+        <br />
+        <br />
+
+-   ### _**rowsPerPageLabel**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : string (ex : rowsPerPageLabel = 'Show')
+    -   **Description** : parameter to define the label to display before for RowsPerPageSelector
+    -   **Default Value** : 'Rows per page'
+        <br />
+        <br />
+
+-   ### _**rowsPerPageTextAfter**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : string (ex : rowsPerPageTextAfter = ' rows per page')
+    -   **Description** : parameter to define the label to display after RowsPerPageSelector
+    -   **Default Value** : null
+        <br />
+        <br />
+
+-   ### _**dataTableRowsBorder**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : Boolean
+    -   **Description** : parameter to show or hide bottom border on dataTableRows
+    -   **Default Value** : false
+        <br />
+        <br />
+
+-   ### _**showPagination**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : Boolean
+    -   **Description** : parameter to show or hide Pagination element
+    -   **Default Value** : true
+        <br />
+        <br />
+
+-   ### _**searchBar**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : Boolean
+    -   **Description** : parameter to show or hide searchBar
+    -   **Default Value** : true
+        <br />
+        <br />
+
+-   ### _**searchBarPlaceholder**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : string (ex : searchBarPlaceholder = 'Search something').
+    -   **Description** : parameter to define the placeholder of searchBar
+    -   **Default Value** : 'Search'
+        <br />
+        <br />
+
+-   ### _**showDataTableHeader**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : Boolean
+    -   **Description** : parameter to show or hide dataTableHeader
+    -   **Default Value** : true
+        <br />
+        <br />
+
+-   ### _**showDataTableRowCard**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : Boolean
+    -   **Description** : parameter to define if dataTableRowCard will be displayed on hovering a dataTableRow
+    -   **Default Value** : true
+        <br />
+        <br />
+
+-   ### _**fontFamily**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : valid font family (ex : fontFamily = 'Verdana').
+    -   **Description** : parameter to define the font family for all dataTable elements
+    -   **Default Value** : 'Roboto, Helvetica, Arial, sans-serif',
+        <br />
+        <br />
+
+-   ### _**styleDataTableContainer**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableContainer = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableContainer style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableHeader**_ :
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableHeader = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableHeader style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableContent**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableContent = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableContent style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableContentHeader**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableContentHeader = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableContentHeader style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableContentBody**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableContentBody = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableContentBody style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableContentFooter**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableContentFooter = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableContentFooter style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableColumn**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableColumn = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableColumn style
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableFooter**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableFooter = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableFooterstyle
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableRow**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableRow = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableRow
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**styleDataTableCell**_
+
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : styleDataTableCell = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at dataTableCell
+    -   **Default Value** : empty object {}
+        <br />
+        <br />
+
+-   ### _**stylePagination**_
+    -   This Prop is **Optional**
+    -   **Format** : CSS object (ex : stylePagination = {fontSize: '16px', 'margin: '50px'}).
+    -   **Description** : parameter to change some CSS parameters at Pagination element
+    -   **Default Value** : empty object {}

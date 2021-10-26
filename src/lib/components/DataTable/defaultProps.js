@@ -1,6 +1,6 @@
 export const defaultProps = {
     dataTableBorderPosition: 'content',
-    rowsPerPageOptions: [2, 5, 10, 20, 50, 100],
+    rowsPerPageOptions: [5, 10, 20, 50, 100],
     rowsPerPagePosition: 'top',
     rowsPerPageDefault: 10,
     rowsPerPageLabel: 'Rows per page',
@@ -10,7 +10,7 @@ export const defaultProps = {
     fontFamily: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif',
     showPagination: true,
     dataTableCellMinWidth: '6em',
-    showdataTableHeader: true,
+    showDataTableHeader: true,
     dataTableRowsBorder: false,
     dataTableRowsHeight: '3rem',
     showDataTableRowCard: true,

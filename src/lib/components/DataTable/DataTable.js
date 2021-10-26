@@ -39,7 +39,7 @@ const DataTable = ({
     showPagination,
     searchBar,
     searchBarPlaceholder,
-    showdataTableHeader,
+    showDataTableHeader,
     showDataTableRowCard,
     fontFamily,
     styleDataTableContainer,
@@ -179,7 +179,7 @@ const DataTable = ({
             colors={colors}
             fontFamily={fontFamily}
         >
-            {showdataTableHeader && (
+            {showDataTableHeader && (
                 <DataTableHeader
                     className="dataTableHeader"
                     role="heading"
@@ -380,7 +380,7 @@ DataTable.propTypes = {
     showPagination: PropTypes.bool,
     searchBar: PropTypes.bool,
     searchBarPlaceholder: PropTypes.string,
-    showdataTableHeader: PropTypes.bool,
+    showDataTableHeader: PropTypes.bool,
     showDataTableRowCard: PropTypes.bool,
     fontFamily: PropTypes.string,
     styleDataTableContainer: PropTypes.shape(),
@@ -417,7 +417,7 @@ DataTable.defaultProps = {
     showPagination: defaultProps.showPagination,
     searchBar: defaultProps.searchBar,
     searchBarPlaceholder: defaultProps.searchBarPlaceholder,
-    showdataTableHeader: defaultProps.showdataTableHeader,
+    showDataTableHeader: defaultProps.showDataTableHeader,
     showDataTableRowCard: defaultProps.showDataTableRowCard,
     fontFamily: defaultProps.fontFamily,
     styleDataTableContainer: null,
