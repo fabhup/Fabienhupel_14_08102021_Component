@@ -403,7 +403,7 @@ DataTable.propTypes = {
 }
 
 DataTable.defaultProps = {
-    striped: false,
+    striped: true,
     customColors: defaultColors,
     dataTableBorderPosition: defaultProps.dataTableBorderPosition,
     dataTableCellMinWidth: defaultProps.dataTableCellMinWidth,
