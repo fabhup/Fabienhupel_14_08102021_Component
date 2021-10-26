@@ -1,3 +1,4 @@
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { darken, lighten, transparentize } from 'polished'
 import { DataTableRowCard } from './DataTableRowCard'

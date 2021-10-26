@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -21,6 +22,7 @@ const StyledDataTableCell = styled.div`
     & div:first-child {
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: left;
         ${({ column }) => {
             if (!column.splitContent) {
                 return `white-space: nowrap;`

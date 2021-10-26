@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -9,7 +10,7 @@ export const StyledDataTableRowCardContainer = styled.div`
     bottom: 0;
     margin: auto 0;
     display: fixed;
-    overflow: scroll;
+    overflow: auto;
     font-size: min(4vmin, 1rem);
     flex-direction: column;
     justify-content: flex-start;

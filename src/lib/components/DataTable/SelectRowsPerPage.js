@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import uniqueId from 'lodash/uniqueId'
 import { darken, transparentize } from 'polished'
@@ -69,7 +70,7 @@ export function SelectRowsPerPage({
                     id={id}
                     name="datatableRowsPerPage"
                     className="dataTableRowsPerPageSelector"
-                    onChange={(e) => onChange(e.target.value)}
+                    onChange={(e) => onChange(Number(e.target.value))}
                     defaultValue={rowsPerPage}
                     colors={colors}
                 >

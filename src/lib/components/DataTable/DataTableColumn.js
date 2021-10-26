@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import sortDownIcon from '../../icons/sort-down-solid.svg'
 import sortUpIcon from '../../icons/sort-up-solid.svg'
@@ -22,6 +23,7 @@ const StyledDataTableColumn = styled.div`
     line-height: 1.5em;
     cursor: pointer;
     position: relative;
+    text-align: left;
     -webkit-tap-highlight-color: transparent;
     &:after {
         content: " ";

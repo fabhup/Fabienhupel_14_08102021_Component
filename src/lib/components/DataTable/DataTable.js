@@ -1,3 +1,4 @@
+import React from 'react'
 import { DataTableContainer } from './DataTableContainer'
 import { DataTableHeader } from './DataTableHeader'
 import { DataTableContent } from './DataTableContent'
@@ -21,7 +22,7 @@ import { useState, useMemo } from 'react'
 import { isEven } from '../../utils/utils'
 import PropTypes from 'prop-types'
 
-export default function DataTable({
+const DataTable = ({
     data,
     columns,
     striped,
@@ -52,13 +53,17 @@ export default function DataTable({
     styleDataTableRow,
     styleDataTableCell,
     stylePagination,
-    primaryColor = customColors.primaryColor,
-    primaryColorBackground = customColors.primaryColorBackground,
-    secondaryColor = customColors.secondaryColor,
-    secondaryColorBackground = customColors.secondaryColorBackground,
-    stripedColor = customColors.stripedColor,
-    stripedColorBackground = customColors.stripedColorBackground,
-}) {
+    primaryColor = customColors.primaryColor || defaultColors.primaryColor,
+    primaryColorBackground = customColors.primaryColorBackground ||
+        defaultColors.primaryColorBackground,
+    secondaryColor = customColors.secondaryColor ||
+        defaultColors.secondaryColor,
+    secondaryColorBackground = customColors.secondaryColorBackground ||
+        defaultColors.secondaryColorBackground,
+    stripedColor = customColors.stripedColor || defaultColors.stripedColor,
+    stripedColorBackground = customColors.stripedColorBackground ||
+        defaultColors.stripedColorBackground,
+}) => {
     //State used for filter data with searchBar
     const { filteredData, activeFilter, filterData } = useFilterData(data)
 
@@ -343,6 +348,7 @@ export default function DataTable({
         </DataTableContainer>
     )
 }
+export default DataTable
 
 DataTable.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
