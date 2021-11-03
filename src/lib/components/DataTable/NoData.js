@@ -7,8 +7,9 @@ const StyledNoDataContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 2rem 15px 0;
+    padding: 2rem 15px 1rem;
     text-align: center;
+    min-height: 5rem;
     ${({ rowsHeight, rowsPerPage }) =>
         `height: calc(${rowsPerPage}*${rowsHeight})`};
     font-size: 2rem;
