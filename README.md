@@ -1,6 +1,7 @@
 # fhp-component-library
 
-A library of React components created using `create-react-app`.
+A library of React components created using `create-react-app`.\
+This library is [published on npm](https://www.npmjs.com/package/fhp-component-library)
 
 ## Installation
 
