@@ -6,7 +6,7 @@ This library is [published on npm](https://www.npmjs.com/package/fhp-component-l
 ## Installation
 
 Run the following command:
-`npm intall fhp-component-library`
+`npm install fhp-component-library`
 
 ## Components
 
